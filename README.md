@@ -12,26 +12,18 @@ Explainability
 
 Clean API design
 
-🚀 Tech Stack
-Backend
+Smart Task Analyzer
 
-Python 3.8+
+A lightweight Django and JavaScript application that scores and ranks tasks based on urgency, importance, effort, and dependencies.
+This project focuses on clean problem-solving, clear API design, and an explainable scoring algorithm.
 
-Django 4.x
+Tech Stack
 
-Django REST Framework
+Backend: Python, Django, Django REST Framework, SQLite
+Frontend: HTML, CSS, JavaScript (Fetch API)
 
-django-cors-headers
+Project Structure
 
-SQLite
-
-Frontend
-
-HTML5, CSS3, JavaScript
-
-Fetch API for HTTP calls
-
-📁 Project Structure
 task-analyzer/
 ├── backend/
 │   ├── manage.py
@@ -43,82 +35,49 @@ task-analyzer/
     ├── styles.css
     └── script.js
 
-🛠️ Setup Instructions
-1. Run the Backend
+How to Run the Project
+Backend
 cd backend
 python -m venv venv
 venv\Scripts\activate   # Windows
-# source venv/bin/activate  # Mac/Linux
-
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 
 
-Backend runs at:
-➡️ http://127.0.0.1:8000/
+The backend runs at:
+http://127.0.0.1:8000/
 
-2. Run the Frontend
+Frontend
 
-Open:
+Open frontend/index.html in the browser or run using any simple static server.
 
-frontend/index.html
+API Endpoints
+Analyze Tasks
 
-
-(or use VS Code Live Server)
-
-The frontend communicates with:
-
-http://127.0.0.1:8000/api/tasks/...
-
-📌 API Endpoints
-1. Analyze Tasks
 POST /api/tasks/analyze/
 
+Accepts a list of tasks and returns them with calculated scores and explanations.
 
-Request format:
+Suggest Top Tasks
 
-{
-  "strategy": "smart_balance",
-  "tasks": [
-    {
-      "id": "T1",
-      "title": "Fix login bug",
-      "due_date": "2025-11-30",
-      "estimated_hours": 3,
-      "importance": 8,
-      "dependencies": []
-    }
-  ]
-}
+GET /api/tasks/suggest/?limit=3
 
-2. Suggest Top Tasks
-GET /api/tasks/suggest/?strategy=smart_balance&limit=3
+Returns the top ranked tasks based on the last analysis.
 
+Scoring Approach
 
-Returns top tasks ranked by priority.
+Each task is evaluated using four factors:
 
-🧠 Priority Algorithm – Simple Explanation
+Urgency (based on due date)
 
-Each task receives a score (0–100) based on:
+Importance (1–10 scale)
 
-✔ Urgency
+Effort (quick-win factor)
 
-How soon the task is due (past-due = highest urgency)
+Dependencies (tasks it unblocks)
 
-✔ Importance
-
-User rating (1–10 → normalized)
-
-✔ Effort (Quick-Win Factor)
-
-Small tasks are promoted as “quick wins”
-
-✔ Dependency Breadth
-
-Tasks that unblock others get boosted
-
-Each strategy uses different weight combinations:
+Four strategies are supported:
 
 Fastest Wins
 
@@ -128,51 +87,39 @@ Deadline Driven
 
 Smart Balance (default)
 
-Explanations describe why a task ranked high.
+Tasks are scored on a 0–100 scale and categorized into High, Medium, or Low priority. Each task also includes an explanation describing why it received its score.
 
-🧪 Tests
-
-Run:
-
+Testing
 cd backend
 python manage.py test
 
 
-Includes:
+Covers importance ranking, past-due handling, dependency cycles, and suggestion limits.
 
-Importance comparison
+Time Taken
 
-Past-due urgency
+Total implementation time: approximately 3 hours and 45 minutes.
 
-Circular dependency detection
+Future Improvements
 
-Suggest-endpoint limit tests
+Dependency graph visualization
 
-⏳ Time Breakdown
-Work Item	Time
-Algorithm design	1h 15m
-Backend implementation	45m
-Frontend UI + JS	1h
-Tests + README + cleanup	45m
+Holiday-aware urgency calculations
 
-Total ≈ 3h 45m
+Eisenhower matrix view
 
-🌱 Future Enhancements
+Learning-based scoring adjustments
 
-Visual dependency graph
+User accounts and persistent task storage
 
-Holiday-aware urgency
+Notes
 
-Eisenhower matrix UI
+This project emphasizes:
 
-ML-based weight adjustments
+A clear and transparent scoring algorithm
 
-User accounts & persistent tasks
+Clean and readable code
 
-📝 Notes for Reviewers
+A simple UI focused on functionality
 
-Code is intentionally clean and readable
-
-Algorithm is explainable and configurable
-
-UI demonstrates core features without unnecessary complexity
+A well-documented and easy-to-understand backend design
