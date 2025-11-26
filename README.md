@@ -62,3 +62,16 @@ Supported strategies:
 
 - Fastest Wins  
 - High
+
+- ## Screenshots
+
+### 1. Main Interface
+This screenshot shows the initial UI with task input fields, strategy selection, JSON input, and action buttons.
+
+![Main UI](screenshots/main-ui.png)
+
+### 2. Task Analysis Results
+This screenshot shows the system in action after analyzing multiple tasks. It displays the calculated scores, priority labels, explanations, and the "Today's Top 3" section.
+
+![Analysis Results](screenshots/results.png)
+
