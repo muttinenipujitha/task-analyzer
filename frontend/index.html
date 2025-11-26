@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Task Analyzer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Smart Task Analyzer</h1>
+      <p class="subtitle">
+        Rank your work by impact, urgency and effort – in a single click.
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="card">
+        <h2>1. Task Input</h2>
+
+        <form id="task-form" class="task-form">
+          <div class="field-row">
+            <label>
+              Title
+              <input type="text" id="title" required />
+            </label>
+          </div>
+
+          <div class="field-row">
+            <label>
+              Due date
+              <input type="date" id="due_date" />
+            </label>
+            <label>
+              Estimated hours
+              <input type="number" id="estimated_hours" min="0" step="0.25" />
+            </label>
+            <label>
+              Importance (1–10)
+              <input type="number" id="importance" min="1" max="10" />
+            </label>
+          </div>
+
+          <div class="field-row">
+            <label class="full-width">
+              Dependencies (IDs, comma separated)
+              <input
+                type="text"
+                id="dependencies"
+                placeholder="E.g. T1,T2 (optional)"
+              />
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Add Task</button>
+            <button type="button" id="clear-tasks" class="btn ghost">
+              Clear All
+            </button>
+          </div>
+        </form>
+
+        <div class="bulk-input">
+          <h3>Bulk JSON Input</h3>
+          <p class="help-text">
+            Paste a JSON array of tasks (same shape as the API). This will <strong>replace</strong> the current list.
+          </p>
+          <textarea
+            id="json-input"
+            rows="6"
+            placeholder='[{"id": "T1", "title": "Fix login bug", "due_date": "2025-11-30", "estimated_hours": 3, "importance": 8, "dependencies": []}]'
+          ></textarea>
+          <button id="load-json" class="btn secondary">Load JSON</button>
+          <p id="json-error" class="error-msg hidden"></p>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>2. Analysis Strategy</h2>
+        <div class="field-row">
+          <label class="full-width">
+            Strategy
+            <select id="strategy">
+              <option value="smart_balance">Smart Balance (recommended)</option>
+              <option value="fastest_wins">Fastest Wins (quick wins)</option>
+              <option value="high_impact">High Impact (importance first)</option>
+              <option value="deadline_driven">Deadline Driven</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="strategy-description" id="strategy-description"></div>
+
+        <div class="form-actions">
+          <button id="analyze" class="btn primary">Analyze Tasks</button>
+          <button id="suggest" class="btn secondary">
+            Suggest Today&apos;s Top 3
+          </button>
+        </div>
+
+        <p id="status" class="status-msg"></p>
+      </section>
+
+      <section class="card full-width">
+        <h2>3. Results</h2>
+        <div id="task-list-empty" class="empty-state">
+          <p>No tasks analyzed yet. Add a few tasks and click <strong>Analyze Tasks</strong>.</p>
+        </div>
+        <div id="results" class="results-grid"></div>
+
+        <h3 class="suggest-header">Today's Focus (Top 3)</h3>
+        <div id="suggestions" class="results-grid suggestions-grid"></div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <small>
+        Smart Task Analyzer – demo project. Strategies available: Fastest Wins, High Impact,
+        Deadline Driven, and Smart Balance.
+      </small>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
